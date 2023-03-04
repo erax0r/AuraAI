@@ -1,4 +1,4 @@
-# gpt 3
+# gpt 3.5
 import os
 import openai
 from dotenv import load_dotenv
