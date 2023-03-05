@@ -25,7 +25,7 @@
     max-width: 600px;
   }
 
-  input[type="text"] {
+  textarea[type="textarea"] {
     border: none;
     border-radius: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -64,7 +64,7 @@
     margin: 50px auto;
     max-width: 600px;
     padding: 20px;
-    text-align: center;
+    text-align: left;
     white-space: pre-wrap;
     color: #eee;
   }
@@ -74,7 +74,7 @@
     <h1>Aura AI</h1>
     <form action="/home/" method="POST">
       {% csrf_token %}
-      <input type="text" name="user_input" placeholder="Type your message...">
+      <textarea type="textarea" rows="4" cols="50" name="user_input" placeholder="Type your message..."></textarea>
       <input type="hidden" name="my_hidden_input" value="  {{ data2 }}">
       <button type="submit">Send</button>
     </form>
