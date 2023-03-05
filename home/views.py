@@ -54,5 +54,23 @@ def index(request):
             msgs.append({"role": "assistant", "content": reply})
             # Convert the msgs list to a JSON string
             msgs_json = json.dumps(msgs)
+            logRequest(request,msgs) #log the conversation
             return render(request, "index.html", {"data": reply, "data2": msgs_json})
     return render(request, "index.html", {"data": ""})
+
+def logRequest(request,msgs):
+    user_ip = request.META.get('REMOTE_ADDR', '') # Get the user's IP address
+    log_file_path = f'logs/{user_ip}.txt' # Set the path and name of the log file
+    if request.method == 'POST':
+        # rest of your code
+        msgs_json = json.dumps(msgs)
+        
+        # Create the logs directory if it doesn't exist
+        if not os.path.exists('logs'):
+            os.makedirs('logs')
+        
+        # Append or create the log file
+        with open(log_file_path, 'a+') as f:
+            f.write(msgs_json + '\n')
+        # rest of your code
+    return
