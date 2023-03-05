@@ -46,7 +46,7 @@ def index(request):
             msgs.append ({"role": "user", "content": msg})
             #return JsonResponse({'data': ai_response})     
             msgs.append({"role": "assistant", "content": reply})
-            return render(request,"index.html",{"data":reply,"data2":"test-abc"})
+            return render(request,"index.html",{"data":reply,"data2":response})
     return render(request,"index.html",{"data":"Hello World1"})
 
 
