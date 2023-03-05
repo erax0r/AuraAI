@@ -75,13 +75,11 @@
     <form action="/home/" method="POST">
       {% csrf_token %}
       <input type="text" name="user_input" placeholder="Type your message...">
+      <input type="hidden" name="my_hidden_input" value="  {{ data2 }}">
       <button type="submit">Send</button>
     </form>
     {% if data %}
       <p>{{ data }}</p>
     {% endif %}
-    {% if data2 %}
-    <p>{{ data2 }}</p>
-  {% endif %}
   </body>
 </html> 
