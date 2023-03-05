@@ -49,7 +49,7 @@ def index(request):
             msgs.append({"role": "user", "content": user_input})
             openai.api_key = os.getenv("OPENAI_API_KEY")
             response = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=msgs)
-            reply = response["choices"][0]["message"]["content"]
+            reply = response["choices"][0]["message"]["content"].lstrip()
             # Append the AI response to the msgs list
             msgs.append({"role": "assistant", "content": reply})
             # Convert the msgs list to a JSON string
