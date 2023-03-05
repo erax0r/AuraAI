@@ -6,6 +6,7 @@ import os
 from dotenv import load_dotenv
 import dotenv
 import json
+import datetime
 
 # Create your views here.
 
@@ -32,6 +33,9 @@ TEMPLATE_DIRS = ('home/templates',)
 #     return render(request,"index.html",{"data":"Hello World1"})
 
 def index(request):
+    # create a datetime object for the current timestamp
+    timestamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    
     if request.method == 'POST':
         load_dotenv() # Load all the ENV variables into your os enviroment.
         user_input = request.POST.get('user_input', '')
@@ -46,11 +50,15 @@ def index(request):
                 for msg in history:
                     msgs.append(msg)
             # Append the user input to the msgs list
+            # msgs.append({"role": "user", "content": user_input,"timestamp":timestamp})
             msgs.append({"role": "user", "content": user_input})
             openai.api_key = os.getenv("OPENAI_API_KEY")
-            response = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=msgs)
+            response = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=msgs,temperature=1.2,user="test123")
+            # response = openai.ChatCompletion.create(model="davinci-similarity", messages=msgs)
+            timestamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             reply = response["choices"][0]["message"]["content"].lstrip()
             # Append the AI response to the msgs list
+            # msgs.append({"timestamp":timestamp,"role": "assistant", "content": reply})
             msgs.append({"role": "assistant", "content": reply})
             # Convert the msgs list to a JSON string
             msgs_json = json.dumps(msgs)
@@ -59,6 +67,7 @@ def index(request):
     return render(request, "index.html", {"data": ""})
 
 def logRequest(request,msgs):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
     user_ip = request.META.get('REMOTE_ADDR', '') # Get the user's IP address
     log_file_path = f'logs/{user_ip}.txt' # Set the path and name of the log file
     if request.method == 'POST':
