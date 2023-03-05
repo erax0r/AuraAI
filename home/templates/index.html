@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>My AI Companion</title>
+    <title>Aura AI</title>
     <style>
       body {
         background-color: #222;
@@ -17,6 +17,11 @@
     padding: 30px;
     text-align: center;
   }
+
+  a {
+        text-decoration: none;
+        color: inherit;
+    }
 
   form {
     display: flex;
@@ -68,10 +73,13 @@
     white-space: pre-wrap;
     color: #eee;
   }
+
 </style>
   </head>
   <body>
+    <a href="">
     <h1>Aura AI</h1>
+    </a>
     <form action="/home/" method="POST">
       {% csrf_token %}
       <textarea type="textarea" rows="4" cols="50" name="user_input" placeholder="Type your message..."></textarea>
@@ -81,5 +89,6 @@
     {% if data %}
       <p>{{ data }}</p>
     {% endif %}
+
   </body>
 </html> 
