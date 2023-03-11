@@ -12,26 +12,6 @@ import datetime
 
 TEMPLATE_DIRS = ('home/templates',)
 
-# def index(request):   
-#     if request.method == 'POST':
-#         load_dotenv() # Load all the ENV variables into your os enviroment.
-#         user_input = request.POST.get('user_input', '')
-#         hidden_input = request.POST.get('my_hidden_input', '')
-#         if user_input.strip():
-#             msg = user_input
-#             history = hidden_input
-#             openai.api_key = os.getenv("OPENAI_API_KEY")
-#             msgs = []
-#             # msgs.append(hidden_input)
-#             msgs.append({"role": "user", "content": user_input})
-#             response = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=msgs)
-#             reply = response["choices"][0]["message"]["content"]
-#             #  msgs.append ({"role": "user", "content": msg})
-#             #return JsonResponse({'data': ai_response})     
-#             msgs.append({"role": "assistant", "content": reply})
-#             return render(request,"index.html",{"data":reply,"data2":msgs})
-#     return render(request,"index.html",{"data":"Hello World1"})
-
 def index(request):
     # create a datetime object for the current timestamp
     timestamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
@@ -53,7 +33,7 @@ def index(request):
             # msgs.append({"role": "user", "content": user_input,"timestamp":timestamp})
             msgs.append({"role": "user", "content": user_input})
             openai.api_key = os.getenv("OPENAI_API_KEY")
-            response = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=msgs,temperature=1.2,user="test123")
+            response = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=msgs,user="test123")
             # response = openai.ChatCompletion.create(model="davinci-similarity", messages=msgs)
             timestamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             reply = response["choices"][0]["message"]["content"].lstrip()
