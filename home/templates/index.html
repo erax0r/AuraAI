@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Aura AI</title>
+    <title>AskGPT</title>
     <style>
       /* CSS styles for the page layout */
       body {
@@ -11,9 +11,10 @@
         padding: 0;
       }
 
-      h1 {
+      .heading {
         color: #eee;
         font-size: 48px;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
         margin: 0;
         padding: 30px;
         text-align: center;
@@ -22,6 +23,29 @@
       a {
         text-decoration: none;
         color: inherit;
+      }
+
+      .tab {
+        display: inline-block;
+        background-color: #444;
+        color: #eee;
+        padding: 10px 20px;
+        margin: 0 10px;
+        border-radius: 5px;
+      }
+
+      .tab:hover {
+        background-color: #666;
+      }
+
+      .active-tab {
+        background-color: #0052cc88;
+        color: #fff;
+      }
+
+      .tabs {
+        border-bottom: 2px solid #17232b;
+        padding-bottom: 10px;
       }
 
       form {
@@ -68,7 +92,8 @@
         border-radius: 20px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         margin: 50px auto;
-        max-width: 600px;
+        margin-top: 0;
+        max-width: 800px;
         padding: 20px;
       }
 
@@ -90,15 +115,34 @@
         color: white;
       }
 
+            /* CSS styles for the footer */
+      footer {
+        background-color: #141316;
+        color: #a3a3a3;
+        text-align: center;
+        padding: 10px;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+      }
+
     </style>
 
   </head>
   <body>
-    <a href="">
-      <h1>Aura AI</h1>
-    </a>
-
+    <div class="heading">
+    <a href="">Aura AI</a>
+  </div>
     <div class="chat-box">
+      <center>        
+        <div class="tabs">
+        <a href="#demo" class="tab active-tab">Demo</a>
+        <a href="#personalities" class="tab">Personalities</a>        
+        <a href="#games" class="tab">Games</a>
+        <a href="#games" class="tab">Top Conversations</a>
+        <a href="#pro" class="tab">Pro</a>
+      </div>
+    </center>
 
       <form action="/home/" method="POST">
         {% csrf_token %}
@@ -121,6 +165,6 @@
 
     </div>
 
-
+<footer>With great power comes great responsibility.</footer>
   </body>
 </html>

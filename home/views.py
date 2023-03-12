@@ -29,7 +29,8 @@ def index(request):
             response = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=conversation,user="test123")
             timestamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             reply = response["choices"][0]["message"]["content"].lstrip()
-            conversation.append({"role": "assistant", "content": reply})
+            replyWithPreTags = getPreTags(reply)
+            conversation.append({"role": "assistant", "content": replyWithPreTags})
             logRequest(request,conversation) #log the conversation
             msgsjson = json.dumps(conversation)            
             return render(request, "index.html", {"data": reply, "data2": conversation, "data3": msgsjson})
@@ -52,3 +53,10 @@ def logRequest(request,msgs):
             f.write(msgs_json + '\n')
         # rest of your code
     return
+
+def getPreTags(message):    
+    while ("```" in message):
+        message = message.replace("```", '<pre>',1) #replace first occurence    
+        message = message.replace("```", '</pre>',1) #replace first occurence
+    return message
+
